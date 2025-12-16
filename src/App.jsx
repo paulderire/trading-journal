@@ -16,6 +16,7 @@ import ImportTrades from "./pages/ImportTrades";
 import StrategyManager from "./pages/StrategyManager";
 import Reports from "./pages/Reports";
 import TradePlan from "./pages/TradePlan";
+import TradingAlerts from "./pages/TradingAlerts";
 import Dashboard from "./components/Dashboard";
 // import AddTrade from "./components/AddTrade";
 import { signOut } from "firebase/auth";
@@ -69,6 +70,7 @@ function Navbar() {
 // Navigation items with icons
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+  { path: '/alerts', label: 'Trading Alerts', icon: '🚨' },
   { path: '/', label: 'Journal', icon: '📓' },
   { path: '/trade-plan', label: 'Trade Plan', icon: '📝' },
   { path: '/import', label: 'Import Trades', icon: '📥' },
@@ -150,6 +152,7 @@ function AppContent() {
         <main>
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/alerts" element={<TradingAlerts />} />
             <Route path="/" element={<Journal />} />
             <Route path="/trade-plan" element={<TradePlan />} />
             <Route path="/import" element={<ImportTrades />} />

@@ -5,15 +5,66 @@ import { db, auth } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
 // Market closure/warning dates - DO NOT TRADE
-const marketAlerts = {
+// Exported so TradingAlerts page can use it
+export const marketAlerts = {
+  // ===== 2025 END OF YEAR =====
   '2025-12-24': { type: 'danger', label: '🔴 Christmas Eve', desc: 'DANGER - Early close ~20:00 GMT. Spreads widen significantly.' },
   '2025-12-25': { type: 'closed', label: '🔴 Christmas Day', desc: 'CLOSED - Global markets shut down.' },
   '2025-12-26': { type: 'closed', label: '🔴 Boxing Day', desc: 'CLOSED/THIN - UK/EU closed. Zombie markets.' },
   '2025-12-29': { type: 'warning', label: '🟡 Grey Zone', desc: 'RISKY - Banks on holiday. Choppy, random moves.' },
   '2025-12-30': { type: 'warning', label: '🟡 Grey Zone', desc: 'RISKY - No volume. SMC setups may fail.' },
   '2025-12-31': { type: 'danger', label: '🔴 New Year\'s Eve', desc: 'DANGER - Early close. Banks balancing books.' },
-  '2026-01-01': { type: 'closed', label: '🔴 New Year\'s Day', desc: 'CLOSED - Global Holiday.' },
-  '2026-01-05': { type: 'safe', label: '🟢 Trading Resumes', desc: 'SAFE - First real trading day. Volume returns!' },
+  
+  // ===== 2026 DEATH ZONE (Start of Year) =====
+  '2026-01-01': { type: 'closed', label: '🔴 New Year\'s Day', desc: 'CLOSED - Global Holiday. Do not touch the app.' },
+  '2026-01-02': { type: 'danger', label: '🔴 Danger Day', desc: 'DANGER - Zombie market. Traders still on vacation. Random spikes.' },
+  '2026-01-05': { type: 'safe', label: '🟢 Trading Resumes', desc: 'SAFE - First real trading day of 2026. Volume returns!' },
+  
+  // ===== 2026 US BANK HOLIDAYS =====
+  '2026-01-19': { type: 'warning', label: '🟡 MLK Day', desc: 'US CLOSED - Martin Luther King Jr. Day. Avoid USD pairs after 3:30 PM.' },
+  '2026-02-16': { type: 'warning', label: '🟡 Presidents Day', desc: 'US CLOSED - Presidents\' Day. Low USD liquidity.' },
+  
+  // ===== 2026 EASTER - THE HOLY TRAP =====
+  '2026-04-03': { type: 'closed', label: '⚠️ PERFECT STORM', desc: '🚨 GOOD FRIDAY + NFP = EXTREME DANGER! Markets closed but NFP may release. 100+ pip gaps possible. ABSOLUTELY DO NOT TRADE.' },
+  '2026-04-06': { type: 'closed', label: '🔴 Easter Monday', desc: 'CLOSED - UK/Europe closed. GBPUSD will be dead.' },
+  
+  // ===== 2026 DOUBLE DANGER DAY =====
+  '2026-05-25': { type: 'closed', label: '🔴 DOUBLE DANGER', desc: 'US Memorial Day + UK Spring Bank Holiday. Both London & NY closed. Market effectively stops.' },
+  
+  // ===== 2026 MORE US HOLIDAYS =====
+  '2026-06-19': { type: 'warning', label: '🟡 Juneteenth', desc: 'US CLOSED - Juneteenth. Avoid USD pairs.' },
+  '2026-07-03': { type: 'warning', label: '🟡 Independence Day Observed', desc: 'US LOW LIQUIDITY - July 4 falls on Saturday. Low liquidity all day.' },
+  '2026-09-07': { type: 'warning', label: '🟡 Labor Day', desc: 'US CLOSED - Labor Day. Avoid USD pairs after London close.' },
+  '2026-11-26': { type: 'danger', label: '🔴 Thanksgiving', desc: 'DANGER - US Thanksgiving. Spreads widen massively around 8 PM Kigali time.' },
+  
+  // ===== 2026 END OF YEAR DEATH ZONE =====
+  '2026-12-24': { type: 'danger', label: '🔴 Christmas Eve', desc: 'DANGER - Market closes early. Do not trade.' },
+  '2026-12-25': { type: 'closed', label: '🔴 Christmas Day', desc: 'CLOSED - Global Holiday.' },
+  '2026-12-31': { type: 'danger', label: '🔴 New Year\'s Eve', desc: 'DANGER - Banks closing books. Low liquidity.' },
+  
+  // ===== 2026 NFP FRIDAYS (3:00 PM - 4:30 PM Kigali - DO NOT TRADE) =====
+  '2026-01-09': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time. Likely delayed.' },
+  '2026-02-06': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-03-06': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  // April 3 is Good Friday - already marked as PERFECT STORM above
+  '2026-05-08': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-06-05': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-07-02': { type: 'nfp', label: '📊 NFP Thursday', desc: 'NFP RELEASE (Thursday due to July 3 holiday) - Do NOT trade 3:00-4:30 PM.' },
+  '2026-08-07': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-09-04': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-10-02': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-11-06': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  '2026-12-04': { type: 'nfp', label: '📊 NFP Day', desc: 'NFP RELEASE - Do NOT trade 3:00-4:30 PM Kigali time.' },
+  
+  // ===== 2026 FOMC WEDNESDAYS (Do NOT hold trades overnight) =====
+  '2026-01-28': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Fed announces rates late at night. Do NOT hold trades overnight.' },
+  '2026-03-18': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
+  '2026-04-29': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
+  '2026-06-17': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
+  '2026-07-29': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
+  '2026-09-16': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
+  '2026-10-28': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
+  '2026-12-09': { type: 'fomc', label: '🏦 FOMC Day', desc: 'FOMC MEETING - Do NOT hold trades overnight.' },
 };
 
 const Calendar = ({ hideHeading }) => {
@@ -63,6 +114,8 @@ const Calendar = ({ hideHeading }) => {
         if (alertType === 'closed' || alertType === 'danger') return 'calendar-tile-closed';
         if (alertType === 'warning') return 'calendar-tile-warning';
         if (alertType === 'safe') return 'calendar-tile-safe';
+        if (alertType === 'nfp') return 'calendar-tile-nfp';
+        if (alertType === 'fomc') return 'calendar-tile-fomc';
       }
       
       // Then check for trade P&L
@@ -228,6 +281,26 @@ const Calendar = ({ hideHeading }) => {
               border: '2px solid #6ee7b7'
             }}></span>
             🟢 Safe
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{
+              width: '18px',
+              height: '18px',
+              borderRadius: '4px',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+              border: '2px solid #93c5fd'
+            }}></span>
+            📊 NFP Day
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{
+              width: '18px',
+              height: '18px',
+              borderRadius: '4px',
+              background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+              border: '2px solid #c4b5fd'
+            }}></span>
+            🏦 FOMC Day
           </div>
         </div>
       </div>
