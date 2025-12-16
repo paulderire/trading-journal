@@ -1,0 +1,465 @@
+/* ============================================
+   MODERN TRADING JOURNAL - GLOBAL STYLES
+   ============================================ */
+
+:root {
+  /* Color Palette */
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1f2937;
+  --bg-card: rgba(31, 41, 55, 0.8);
+  --bg-glass: rgba(17, 24, 39, 0.7);
+  
+  --accent-primary: #10b981;
+  --accent-secondary: #3b82f6;
+  --accent-tertiary: #8b5cf6;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --accent-success: #22c55e;
+  
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  
+  --border-color: rgba(75, 85, 99, 0.4);
+  --border-glow: rgba(16, 185, 129, 0.3);
+  
+  /* Typography */
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  color-scheme: dark;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(59, 130, 246, 0.06), transparent);
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+h1 { font-size: 2.5rem; letter-spacing: -0.025em; }
+h2 { font-size: 1.875rem; letter-spacing: -0.02em; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+a {
+  font-weight: 500;
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-secondary);
+}
+
+/* Buttons */
+button {
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  padding: 0.65em 1.4em;
+  font-size: 0.925rem;
+  font-weight: 500;
+  font-family: inherit;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+button:hover {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  transform: translateY(-1px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent-primary);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Form Elements */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.925rem;
+  padding: 0.75em 1em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25em;
+  padding-right: 2.5em;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+/* ============================================
+   iOS & MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* iOS Safe Areas */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Prevent iOS zoom on input focus */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS zoom */
+  }
+}
+
+/* iOS Touch Optimizations */
+@supports (-webkit-touch-callout: none) {
+  button, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Smoother scrolling on iOS */
+  .sidebar, main, .trade-modal {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Fix iOS input styling */
+input, textarea, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: var(--radius-md);
+}
+
+/* iPhone 8 Plus and similar (414px width) */
+@media screen and (max-width: 428px) {
+  :root {
+    font-size: 14px;
+  }
+  
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+  
+  button {
+    padding: 0.6em 1.1em;
+    font-size: 0.875rem;
+    min-height: 44px; /* iOS touch target */
+  }
+  
+  input, select, textarea {
+    padding: 0.85em 1em;
+    min-height: 44px; /* iOS touch target */
+  }
+}
+
+/* Small phones (iPhone SE, etc.) */
+@media screen and (max-width: 375px) {
+  :root {
+    font-size: 13px;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+}
+
+/* ============================================
+   LIGHT THEME
+   ============================================ */
+body.light-theme {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.8);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  
+  --border-color: rgba(148, 163, 184, 0.4);
+  --border-glow: rgba(16, 185, 129, 0.4);
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  
+  color-scheme: light;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+body.light-theme {
+  background: var(--bg-primary);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(59, 130, 246, 0.04), transparent);
+}
+
+/* Light theme navbar */
+body.light-theme .navbar {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+body.light-theme .navbar-title {
+  color: #0f172a;
+}
+
+body.light-theme .logout-btn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+body.light-theme .logout-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* Light theme sidebar */
+body.light-theme .sidebar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%);
+  border-right: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+body.light-theme .sidebar ul li a {
+  color: #475569;
+}
+
+body.light-theme .sidebar ul li a:hover {
+  background: rgba(16, 185, 129, 0.1);
+  color: #0f172a;
+}
+
+body.light-theme .sidebar ul li a.active {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+  color: #10b981;
+  border-left: 3px solid #10b981;
+}
+
+body.light-theme .sidebar-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+body.light-theme .sidebar-footer-text {
+  color: #64748b;
+}
+
+/* Light theme hamburger */
+body.light-theme .hamburger-btn {
+  background: rgba(15, 23, 42, 0.05);
+}
+
+body.light-theme .hamburger-btn:hover {
+  background: rgba(15, 23, 42, 0.1);
+}
+
+body.light-theme .hamburger-icon span {
+  background: #0f172a;
+}
+
+/* Light theme main content */
+body.light-theme main {
+  background: var(--bg-primary);
+}
+
+/* Light theme cards - global */
+body.light-theme [style*="rgba(30, 41, 59"] {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+body.light-theme [style*="rgba(15, 23, 42"] {
+  background: rgba(241, 245, 249, 0.8) !important;
+}
+
+/* Light theme inputs */
+body.light-theme input,
+body.light-theme select,
+body.light-theme textarea {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #0f172a;
+}
+
+body.light-theme input::placeholder,
+body.light-theme textarea::placeholder {
+  color: #94a3b8;
+}
+
+body.light-theme input:focus,
+body.light-theme select:focus,
+body.light-theme textarea:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* Light theme buttons */
+body.light-theme button {
+  color: #0f172a;
+}
+
+/* Light theme text colors */
+body.light-theme [style*="color: #f1f5f9"],
+body.light-theme [style*="color: #f9fafb"],
+body.light-theme [style*="color: rgb(241, 245, 249)"] {
+  color: #0f172a !important;
+}
+
+body.light-theme [style*="color: #94a3b8"],
+body.light-theme [style*="color: #9ca3af"],
+body.light-theme [style*="color: rgb(148, 163, 184)"] {
+  color: #475569 !important;
+}
+
+body.light-theme [style*="color: #64748b"],
+body.light-theme [style*="color: #6b7280"],
+body.light-theme [style*="color: rgb(100, 116, 139)"] {
+  color: #64748b !important;
+}
+
+/* Light theme feature page backgrounds */
+body.light-theme .feature-page {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+}
+
+/* Light theme scrollbar */
+body.light-theme::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+body.light-theme::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+body.light-theme::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Smooth transition between themes */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body * {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
